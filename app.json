@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "a3ff9faa-cd91-47a7-bc0d-c7f56f6b253a"
+      }
+    },
+    "android": {
+      "package": "com.ishaan_chadha.app1"
+    }
+  }
+}
