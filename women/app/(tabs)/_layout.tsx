@@ -24,6 +24,42 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="panic-mode"
+        options={{
+          title: 'Panic Mode',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'alert' : 'alert-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="trust-network"
+        options={{
+          title: 'Trust Network',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'people' : 'people-outline'} color={color} />
+          ),
+        }}
+      />
+      {/* <Tabs.Screen
+        name="virtual-guardian"
+        options={{
+          title: 'Virtual Guardian',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'shield' : 'shield-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="safe-route-planner"
+        options={{
+          title: 'Safe Route Planner',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'map' : 'map-outline'} color={color} />
+          ),
+        }}
+      /> */}
+      <Tabs.Screen
         name="explore"
         options={{
           title: 'Explore',
