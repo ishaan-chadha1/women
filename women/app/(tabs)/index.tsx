@@ -17,7 +17,7 @@ export default function HomeScreen() {
         <Text style={styles.sosButtonText}>SOS</Text>
       </TouchableOpacity>
 
-      <Text style={styles.headerText}>Ensuring Your Safety, Ishaan!</Text>
+      <Text style={styles.headerText}>Hello Sejal How are You</Text>
 
       <MapView
         style={styles.map}
