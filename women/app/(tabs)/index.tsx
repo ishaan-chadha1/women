@@ -1,5 +1,15 @@
 import React from 'react';
-import { Image, StyleSheet, View, Button, Switch, Text, TouchableOpacity } from 'react-native';
+import { 
+  StyleSheet, 
+  View, 
+  Switch, 
+  Text, 
+  TouchableOpacity, 
+  ScrollView,
+  SafeAreaView,
+  Platform,
+  StatusBar 
+} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 export default function HomeScreen() {
@@ -9,64 +19,105 @@ export default function HomeScreen() {
   const [isBatteryEnabled, setBatteryEnabled] = React.useState(false);
 
   return (
-    <View style={styles.container}>
-      {/* Top SOS Button */}
-      <TouchableOpacity
-        style={[styles.sosButton, styles.sosButtonTop]}
-        onPress={() => alert('SOS Button Pressed!')}>
-        <Text style={styles.sosButtonText}>SOS</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.headerText}>Hello Sejal How are You</Text>
-
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: 37.7749,
-          longitude: -122.4194,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}>
-        <Marker coordinate={{ latitude: 37.7749, longitude: -122.4194 }} />
-      </MapView>
-
-      <View style={styles.toggleContainer}>
-        <View style={styles.toggleRow}>
-          <Text style={styles.toggleLabel}>Share Live Location</Text>
-          <Switch
-            value={isLiveLocationEnabled}
-            onValueChange={setLiveLocationEnabled}
-          />
-        </View>
-        <View style={styles.toggleRow}>
-          <Text style={styles.toggleLabel}>Share Audio</Text>
-          <Switch value={isAudioEnabled} onValueChange={setAudioEnabled} />
-        </View>
-        <View style={styles.toggleRow}>
-          <Text style={styles.toggleLabel}>Share Video</Text>
-          <Switch value={isVideoEnabled} onValueChange={setVideoEnabled} />
-        </View>
-        <View style={styles.toggleRow}>
-          <Text style={styles.toggleLabel}>Share Battery Percentage</Text>
-          <Switch value={isBatteryEnabled} onValueChange={setBatteryEnabled} />
-        </View>
+    <SafeAreaView style={styles.safeArea}>
+      {/* Top Fixed SOS Button */}
+      <View style={styles.topButtonContainer}>
+        <TouchableOpacity 
+          style={[styles.sosButton, styles.sosButtonTop]} 
+          onPress={() => alert('SOS Button Pressed!')}
+        >
+          <Text style={styles.sosButtonText}>SOS</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Bottom SOS Button */}
-      <TouchableOpacity
-        style={styles.sosButton}
-        onPress={() => alert('SOS Button Pressed!')}>
-        <Text style={styles.sosButtonText}>SOS</Text>
-      </TouchableOpacity>
-    </View>
+      {/* Scrollable Content */}
+      <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollContentContainer}>
+        <Text style={styles.headerText}>Hello Sejal How are You</Text>
+        
+        <MapView style={styles.map}>
+          {/* Add your markers here */}
+        </MapView>
+
+        <View style={styles.toggleContainer}>
+          <View style={styles.toggleRow}>
+            <Text style={styles.toggleLabel}>Share Live Location</Text>
+            <Switch
+              value={isLiveLocationEnabled}
+              onValueChange={setLiveLocationEnabled}
+            />
+          </View>
+
+          <View style={styles.toggleRow}>
+            <Text style={styles.toggleLabel}>Share Audio</Text>
+            <Switch
+              value={isAudioEnabled}
+              onValueChange={setAudioEnabled}
+            />
+          </View>
+
+          <View style={styles.toggleRow}>
+            <Text style={styles.toggleLabel}>Share Video</Text>
+            <Switch
+              value={isVideoEnabled}
+              onValueChange={setVideoEnabled}
+            />
+          </View>
+
+          <View style={styles.toggleRow}>
+            <Text style={styles.toggleLabel}>Share Battery Percentage</Text>
+            <Switch
+              value={isBatteryEnabled}
+              onValueChange={setBatteryEnabled}
+            />
+          </View>
+        </View>
+      </ScrollView>
+
+      {/* Bottom Fixed SOS Button */}
+      <View style={styles.bottomButtonContainer}>
+        <TouchableOpacity 
+          style={styles.sosButton} 
+          onPress={() => alert('SOS Button Pressed!')}
+        >
+          <Text style={styles.sosButtonText}>SOS</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    justifyContent: 'space-between',
     backgroundColor: '#f7f7f7',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  },
+  topButtonContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: '#f7f7f7',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  bottomButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: '#f7f7f7',
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  scrollContent: {
+    flex: 1,
+    marginTop: 80, // Height of top SOS button + padding
+    marginBottom: 80, // Height of bottom SOS button + padding
+  },
+  scrollContentContainer: {
     paddingHorizontal: 20,
   },
   headerText: {
@@ -78,20 +129,19 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '30%', // Reduced height for better fit
+    height: 200,
     borderRadius: 10,
     marginBottom: 20,
   },
   toggleContainer: {
-    marginVertical: 10, // Reduced margin
-    paddingHorizontal: 10,
+    marginVertical: 10,
   },
   toggleRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10, // Reduced spacing between toggles
-    paddingVertical: 8, // Reduced padding
+    marginBottom: 10,
+    paddingVertical: 8,
     paddingHorizontal: 8,
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -102,7 +152,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   toggleLabel: {
-    fontSize: 14, // Reduced font size
+    fontSize: 14,
     color: '#333',
   },
   sosButton: {
@@ -115,10 +165,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 10,
     elevation: 5,
-    marginBottom: 20,
   },
   sosButtonTop: {
-    marginTop: 20,
+    marginBottom: 0,
   },
   sosButtonText: {
     fontSize: 18,
@@ -126,4 +175,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
