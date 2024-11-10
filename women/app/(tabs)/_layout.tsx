@@ -41,7 +41,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      {/* <Tabs.Screen
+      <Tabs.Screen
         name="virtual-guardian"
         options={{
           title: 'Virtual Guardian',
@@ -50,7 +50,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="safe-route-planner"
         options={{
           title: 'Safe Route Planner',
@@ -59,7 +59,7 @@ export default function TabLayout() {
           ),
         }}
       /> */}
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="ai-assistant"
         options={{
           title: 'AI Assistant',
@@ -67,7 +67,7 @@ export default function TabLayout() {
             <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
           ),
         }}
-      />
+      /> */}
     </Tabs>
   );
 }
